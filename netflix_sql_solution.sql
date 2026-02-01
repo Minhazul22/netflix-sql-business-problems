@@ -1,4 +1,5 @@
 -- Netflix Project
+--create table
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
 (
@@ -176,3 +177,4 @@ SELECT
 	GROUP BY content_category;
 
 	
+
