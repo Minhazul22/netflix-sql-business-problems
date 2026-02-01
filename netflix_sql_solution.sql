@@ -17,26 +17,17 @@ CREATE TABLE netflix
 
 );
 
-SELECT * FROM netflix;
-
-SELECT 
-COUNT(*) 
-as total_content
-FROM netflix;
-
-SELECT DISTINCT type
-FROM netflix;
 
 -- 15 Business Probels --
 
--- 1. Count the Number of Movies vs TV Shows
+--task 1: Count the Number of Movies vs TV Shows
 SELECT 
 	type,
 	COUNT(*) as total_content
 FROM netflix
 GROUP BY type;
 
--- Find the most common rating for movies and TV shows---
+-- task 2: Find the most common rating for movies and TV shows---
 SELECT 
 	type,
 	rating
@@ -183,4 +174,5 @@ SELECT
 	COUNT (*) AS total_items
 	FROM netflix
 	GROUP BY content_category;
+
 	
