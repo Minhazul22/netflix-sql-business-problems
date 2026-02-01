@@ -199,7 +199,7 @@ LIMIT 10;
 SELECT
 	CASE 
 		WHEN description IS NOT NULL
-		AND (description ILIKE '%kill'
+		AND (description ILIKE '%kill%'
 			OR description ILIKE '%violence%')
 	THEN 'Bad'
 	ELSE 'Good'
