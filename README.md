@@ -71,7 +71,7 @@ WHERE
 
 ```
 
-###task 3: List all movies released in a specific year (e.g., 2020) filter 2020 movies
+### task 3: List all movies released in a specific year (e.g., 2020) filter 2020 movies
 ```sql
 SELECT * FROM netflix
 WHERE 
@@ -80,7 +80,7 @@ WHERE
 	release_year = 2020
 ```
 
-###Task 4: Find the top 5 countries with the most content on Netflix
+### Task 4: Find the top 5 countries with the most content on Netflix
 ```sql
 SELECT 
 	UNNEST(STRING_TO_ARRAY(country, ',')) as new_country,
@@ -91,7 +91,7 @@ ORDER BY 2 DESC
 LIMIT 5
 ```
 
-###Task 5: Identify the Longest movie on netflix----
+### Task 5: Identify the Longest movie on netflix----
 ```sql
 SELECT *
 FROM netflix
@@ -105,28 +105,30 @@ AND CAST(REGEXP_SUBSTR(duration, '[0-9]+') AS INT) = (
 
 
 
----task 6: find the contents added in the last 5 years---
+### task 6: find the contents added in the last 5 years---
+```sql
 SELECT * FROM netflix
 WHERE date_added IS NOT NULL
 AND TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
+```
 
-
----task 7: Find all the movies/TV Shows by director 'Rajiv Chilaka'
+### task 7: Find all the movies/TV Shows by director 'Rajiv Chilaka'
+```sql
 SELECT * FROM netflix
 WHERE director LIKE '%Rajiv Chilaka%'
+```
 
---task 8: List all TV Shows with more than 5 Seasons
-
+### task 8: List all TV Shows with more than 5 Seasons
+```sql
 SELECT title,
 	   CAST(SPLIT_PART(duration, ' ', 1) AS INT) AS seasons
 from netflix
 where type LIKE '%TV Show'
 AND CAST(SPLIT_PART(duration, ' ', 1) AS INT) > 5
 ORDER BY seasons DESC;
-
-
----Task 9 : Count the Number of Content Items in each genre
-
+```
+### Task 9 : Count the Number of Content Items in each genre
+```sql
 SELECT
   TRIM(genre) AS genre,
   COUNT(*) AS total_content
@@ -134,9 +136,9 @@ FROM netflix
 CROSS JOIN UNNEST(STRING_TO_ARRAY(listed_in, ',')) AS genre
 GROUP BY genre
 ORDER BY total_content DESC;
-
---Task 10: Find each year and the Avg numbers of content release by India on Netflix
---- return top 5 year with highest avg content release !
+```
+### Task 10: Find each year and the Avg numbers of content release by India on Netflix return top 5 year with highest avg content release !
+```sql
 SELECT
   release_year,
   COUNT(*) AS total_content
@@ -146,22 +148,27 @@ GROUP BY release_year
 ORDER BY total_content DESC
 LIMIT 5;
 
+```
 
----List all movies that are documentaries
+### List all movies that are documentaries
+```sql
 SELECT * 
 FROM netflix 
 WHERE type = 'Movie'
 AND listed_in ILIKE '%Documentaries%'
+```
 
-
--- task 12: Find all content without a director
-
+### task 12: Find all content without a director
+```sql
 SELECT *
 FROM netflix
 WHERE director IS NULL
 OR director = '';
 
--- task 13: Find how many movies actor 'Salman Khan' appeared in last 10 years!
+```
+
+### task 13: Find how many movies actor 'Salman Khan' appeared in last 10 years!
+```sql
 
 SELECT title,
 		COUNT(*) AS total_appearance
@@ -169,10 +176,10 @@ SELECT title,
 WHERE casts ILIKE '%Salman khan%'
 AND release_year >= EXTRACT(YEAR FROM CURRENT_DATE)- 10
 GROUP BY title;
+```
 
-
--- Task 14: Find the top 10 actors who have appeared in the highest number of movies
---produced in India.
+### Task 14: Find the top 10 actors who have appeared in the highest number of movies produced in India.
+```sql
 SELECT 
 	TRIM(actor) as actor,
 	COUNT(*) AS movie_count
@@ -185,12 +192,10 @@ AND TRIM(casts) <> ''
 GROUP BY TRIM(actor)
 ORDER BY movie_count DESC
 LIMIT 10;
+```
 
-
---Task 15: Categorize the content based on the presence of the keywords 'Kill' and 'violence' in the description 
--- field. Label the content containing these keywords as 'Bad' and all other 
--- content as 'Good'. Count how many ietms fall into each category
-
+### Task 15: Categorize the content based on the presence of the keywords 'Kill' and 'violence' in the description field. Label the content containing these keywords as 'Bad' and all other content as 'Good'. Count how many ietms fall into each category
+```sql
 SELECT
 	CASE 
 		WHEN description IS NOT NULL
@@ -202,4 +207,4 @@ SELECT
 	COUNT (*) AS total_items
 	FROM netflix
 	GROUP BY content_category;
-	
+```
